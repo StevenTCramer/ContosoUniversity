@@ -54,9 +54,8 @@
       <HintPath>..\packages\Iesi.Collections.4.0.1.4000\lib\net40\Iesi.Collections.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
     </Reference>
     <Reference Include="MediatR, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MediatR.2.0.0-beta-004\lib\portable-net45+win+wpa81+wp80+MonoAndroid10+Xamarin.iOS10+MonoTouch10\MediatR.dll</HintPath>
@@ -80,12 +79,8 @@
       <HintPath>..\packages\Respawn.0.1.0.0\lib\net45\Respawn.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="roundhouse, Version=0.8.6.0, Culture=neutral, PublicKeyToken=91b86fd44f1f23bc, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\roundhouse\product\bin\roundhouse.dll</HintPath>
-    </Reference>
-    <Reference Include="roundhouse.databases.sqlserver">
-      <HintPath>..\..\..\roundhouse\product\bin\roundhouse.databases.sqlserver.dll</HintPath>
+    <Reference Include="roundhouse">
+      <HintPath>..\packages\roundhouse.lib.0.8.6\lib\roundhouse.dll</HintPath>
     </Reference>
     <Reference Include="Shouldly">
       <HintPath>..\packages\Shouldly.2.5.0\lib\net40\Shouldly.dll</HintPath>
