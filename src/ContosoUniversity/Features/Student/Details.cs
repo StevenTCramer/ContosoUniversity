@@ -1,4 +1,4 @@
-﻿namespace ContosoUniversity.Features.Student
+namespace ContosoUniversity.Features.Student
 {
     using System;
     using System.Collections.Generic;
