@@ -206,6 +206,9 @@
     <Compile Include="Features\Course\Edit.cs" />
     <Compile Include="Features\Course\Index.cs" />
     <Compile Include="Features\Course\MappingProfile.cs" />
+    <Compile Include="Features\Home\About.cs" />
+    <Compile Include="Features\Home\Contact.cs" />
+    <Compile Include="Features\Home\Index.cs" />
     <Compile Include="Features\Instructor\CreateEdit.cs" />
     <Compile Include="Features\Instructor\Delete.cs" />
     <Compile Include="Features\Instructor\Details.cs" />
@@ -220,10 +223,8 @@
     <Compile Include="Features\Department\Delete.cs" />
     <Compile Include="Features\Department\Edit.cs" />
     <Compile Include="Features\Department\UiController.cs" />
-    <Compile Include="Features\Home\UiController.cs" />
     <Compile Include="Features\Instructor\UiController.cs" />
     <Compile Include="Features\Student\MappingProfile.cs" />
-    <Compile Include="Features\Student\UiController.cs" />
     <Compile Include="DAL\SchoolConfiguration.cs" />
     <Compile Include="DAL\SchoolContext.cs" />
     <Compile Include="DAL\SchoolInitializer.cs" />

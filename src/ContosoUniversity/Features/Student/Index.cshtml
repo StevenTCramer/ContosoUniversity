@@ -10,7 +10,8 @@
 <h2>Students</h2>
 
 <p>
-    @(Html.Link<UiController>(c => c.Create(), "Create New"))
+	  @(Html.ActionLink("Create New","Create","Student"))
+    @*@(Html.Link<UiController>(c => c.Create(), "Create New"))*@
 </p>
 <form method="GET">
     <p>
@@ -21,13 +22,13 @@
     <table class="table">
         <tr>
             <th>
-                @(Html.Link<UiController>(c => c.Index(new Index.Query { SortOrder = Model.NameSortParm, CurrentFilter = Model.CurrentFilter }), "Last Name"))
+								@(Html.ActionLink("Last Name", "Index", new Index.Query { SortOrder = Model.NameSortParm, CurrentFilter = Model.CurrentFilter }))
             </th>
             <th>
                 First Name
             </th>
             <th>
-                @(Html.Link<UiController>(c => c.Index(new Index.Query { SortOrder = Model.DateSortParm, CurrentFilter = Model.CurrentFilter }), "Enrollment Date"))
+								@(Html.ActionLink("Enrollment Date", "Index", new Index.Query { SortOrder = Model.DateSortParm, CurrentFilter = Model.CurrentFilter }))
             </th>
             <th></th>
         </tr>
@@ -47,9 +48,9 @@
                     @Html.Display(modelItem => modelItem.Results[i].EnrollmentDate)
                 </td>
                 <td>
-                    @(Html.Link<UiController>(c => c.Edit(new Edit.Query {Id = item.ID}))) |
-                    @(Html.Link<UiController>(c => c.Details(new Details.Query {Id = item.ID }))) |
-                    @(Html.Link<UiController>(c => c.Delete(new Delete.Query { Id = item.ID })))
+									@(Html.ActionLink("Edit", "Edit", new Edit.Query { Id = item.ID }))
+									@(Html.ActionLink("Details", "Details", new Details.Query { Id = item.ID }))
+									@(Html.ActionLink("Delete", "Delete", new Delete.Query { Id = item.ID }))
                 </td>
             </tr>
             i++;
@@ -59,4 +60,4 @@
     <br />
     Page @(Model.Results.PageCount < Model.Results.PageNumber ? 0 : Model.Results.PageNumber) of @Model.Results.PageCount
 
-    @(Html.PagedListPager(Model.Results, page => Url.Action<UiController>(c => c.Index(new Index.Query { Page = page, SortOrder = Model.CurrentSort, CurrentFilter = Model.CurrentFilter }))))
+    @*@(Html.PagedListPager(Model.Results, page => Url.Action<UiController>(c => c.Index(new Index.Query { Page = page, SortOrder = Model.CurrentSort, CurrentFilter = Model.CurrentFilter }))))*@
