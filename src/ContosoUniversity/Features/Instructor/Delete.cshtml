@@ -51,7 +51,7 @@
         @Html.Input(m => m.ID)
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @(Html.Link<UiController>(c => c.Index(null), "Back to List"))
+            @Html.ActionLink("Back to List", "Index")
         </div>
     }
 </div>

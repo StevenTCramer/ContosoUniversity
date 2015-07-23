@@ -1,60 +1,78 @@
 ﻿namespace ContosoUniversity.Features.Course
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using AutoMapper;
-    using DAL;
-    using MediatR;
-    using Models;
+	using System.Collections.Generic;
+	using System.Linq;
+	using System.Threading.Tasks;
+	using System.Web.Mvc;
+	using AutoMapper;
+	using DAL;
+	using MediatR;
+	using Models;
 
-    public class Index
-    {
-        public class Query : IAsyncRequest<Result>
-        {
-            public Department SelectedDepartment { get; set; }
-        }
+	public class Index
+	{
+		public class Query : IAsyncRequest<Result>
+		{
+			public Department SelectedDepartment { get; set; }
+		}
 
-        public class Result
-        {
-            public Department SelectedDepartment { get; set; }
-            public List<Course> Courses { get; set; }
+		public class Result
+		{
+			public Department SelectedDepartment { get; set; }
+			public List<Course> Courses { get; set; }
 
-            public class Course
-            {
-                public int CourseID { get; set; }
-                public string Title { get; set; }
-                public int Credits { get; set; }
-                public string DepartmentName { get; set; }
-            }
-        }
+			public class Course
+			{
+				public int CourseID { get; set; }
+				public string Title { get; set; }
+				public int Credits { get; set; }
+				public string DepartmentName { get; set; }
+			}
+		}
 
-        public class Handler : IAsyncRequestHandler<Query, Result>
-        {
-            private readonly SchoolContext _db;
+		public class Handler : IAsyncRequestHandler<Query, Result>
+		{
+			private readonly SchoolContext _db;
 
-            public Handler(SchoolContext db)
-            {
-                _db = db;
-            }
+			public Handler(SchoolContext db)
+			{
+				_db = db;
+			}
 
-            public async Task<Result> Handle(Query message)
-            {
-                int? departmentID = message.SelectedDepartment == null 
-                    ? (int?)null
-                    : message.SelectedDepartment.DepartmentID;
+			public async Task<Result> Handle(Query message)
+			{
+				int? departmentID = message.SelectedDepartment == null
+						? (int?)null
+						: message.SelectedDepartment.DepartmentID;
 
-                var courses = await _db.Courses
-                    .Where(c => !departmentID.HasValue || c.DepartmentID == departmentID)
-                    .OrderBy(d => d.CourseID)
-                    .ProjectToListAsync<Result.Course>();
+				var courses = await _db.Courses
+						.Where(c => !departmentID.HasValue || c.DepartmentID == departmentID)
+						.OrderBy(d => d.CourseID)
+						.ProjectToListAsync<Result.Course>();
 
-                return new Result
-                {
-                    Courses = courses,
-                    SelectedDepartment = message.SelectedDepartment
-                };
-            }
-        }
-    }
+				return new Result
+				{
+					Courses = courses,
+					SelectedDepartment = message.SelectedDepartment
+				};
+			}
+		}
+
+		public class UiController : Controller
+		{
+			private readonly IMediator _mediator;
+
+			public UiController(IMediator mediator)
+			{
+				_mediator = mediator;
+			}
+
+			public async Task<ActionResult> Index(Index.Query query)
+			{
+				var model = await _mediator.SendAsync(query);
+
+				return View(model);
+			}
+		}
+	}
 }

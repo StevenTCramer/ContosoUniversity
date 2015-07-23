@@ -5,9 +5,9 @@ namespace ContosoUniversity.Features.Student
 	using System.Linq;
 	using System.Threading.Tasks;
 	using System.Web.Mvc;
+	using AutoMapper;
 	using DAL;
-	using Infrastructure;
-	using Infrastructure.Mapping;
+	using Infrastructure;	
 	using MediatR;
 
 	public class Delete

@@ -5,7 +5,7 @@
 }
 <h2>Departments</h2>
 <p>
-    @(Html.Link<UiController>(c => c.Create(), "Create New"))
+		@(Html.ActionLink("Create New","Create"))
 </p>
 <table class="table">
     <tr>
@@ -39,10 +39,10 @@
             <td>
                 @Html.Display(modelItem => modelItem[i].AdministratorFullName)
             </td>
-            <td>
-                @(Html.Link<UiController>(c => c.Edit(new Edit.Query { Id = item.DepartmentID }))) |
-                @(Html.Link<UiController>(c => c.Details(new Details.Query { Id = item.DepartmentID }))) |
-                @(Html.Link<UiController>(c => c.Delete(new Delete.Query { Id = item.DepartmentID })))
+            <td>							
+							@(Html.ActionLink("Edit", "Edit", new Edit.Query { Id = item.DepartmentID }))
+							@(Html.ActionLink("Details", "Details", new Details.Query { Id = item.DepartmentID }))
+							@(Html.ActionLink("Delete", "Delete", new Delete.Query { Id = item.DepartmentID }))
             </td>
         </tr>
         i++;

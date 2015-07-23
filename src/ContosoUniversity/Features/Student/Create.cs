@@ -69,7 +69,7 @@
 			{
 				_mediator.Send(command);
 				
-				return this.RedirectToActionJson("Index", "Student");
+				return this.RedirectToActionJson("Index");
 			}
 		}
 	}

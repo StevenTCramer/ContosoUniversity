@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -223,10 +223,8 @@
     <Compile Include="Features\Student\Details.cs" />
     <Compile Include="Features\Student\Edit.cs" />
     <Compile Include="Features\Student\Index.cs" />
-    <Compile Include="Features\Course\UiController.cs" />
     <Compile Include="Features\Department\Delete.cs" />
     <Compile Include="Features\Department\Edit.cs" />
-    <Compile Include="Features\Department\UiController.cs" />
     <Compile Include="Features\Instructor\UiController.cs" />
     <Compile Include="Features\Student\MappingProfile.cs" />
     <Compile Include="DAL\SchoolConfiguration.cs" />

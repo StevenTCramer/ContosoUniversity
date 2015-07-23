@@ -1,15 +1,15 @@
 namespace ContosoUniversity.Features.Student
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Threading.Tasks;
+	using System;
+	using System.Collections.Generic;
+	using System.ComponentModel.DataAnnotations;
+	using System.Linq;
+	using System.Threading.Tasks;
 	using System.Web.Mvc;
+	using AutoMapper;
 	using DAL;
-	using Infrastructure.Mapping;
-    using MediatR;
-    using Models;
+	using MediatR;
+	using Models;
 
 	public class Details
 	{

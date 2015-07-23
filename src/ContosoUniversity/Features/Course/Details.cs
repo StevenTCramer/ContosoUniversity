@@ -1,48 +1,66 @@
 ﻿namespace ContosoUniversity.Features.Course
 {
-    using System.Linq;
-    using System.Threading.Tasks;
-    using AutoMapper;
-    using DAL;
-    using FluentValidation;
-    using MediatR;
+	using System.Linq;
+	using System.Threading.Tasks;
+	using System.Web.Mvc;
+	using AutoMapper;
+	using DAL;
+	using FluentValidation;
+	using MediatR;
 
-    public class Details
-    {
-        public class Query : IAsyncRequest<Model>
-        {
-            public int? Id { get; set; }
-        }
+	public class Details
+	{
+		public class Query : IAsyncRequest<Model>
+		{
+			public int? Id { get; set; }
+		}
 
-        public class Validator : AbstractValidator<Query>
-        {
-            public Validator()
-            {
-                RuleFor(m => m.Id).NotNull();
-            }
-        }
+		public class Validator : AbstractValidator<Query>
+		{
+			public Validator()
+			{
+				RuleFor(m => m.Id).NotNull();
+			}
+		}
 
-        public class Model
-        {
-            public int CourseID { get; set; }
-            public string Title { get; set; }
-            public int Credits { get; set; }
-            public string DepartmentName { get; set; }
-        }
+		public class Model
+		{
+			public int CourseID { get; set; }
+			public string Title { get; set; }
+			public int Credits { get; set; }
+			public string DepartmentName { get; set; }
+		}
 
-        public class Handler : IAsyncRequestHandler<Query, Model>
-        {
-            private readonly SchoolContext _db;
+		public class Handler : IAsyncRequestHandler<Query, Model>
+		{
+			private readonly SchoolContext _db;
 
-            public Handler(SchoolContext db)
-            {
-                _db = db;
-            }
+			public Handler(SchoolContext db)
+			{
+				_db = db;
+			}
 
-            public async Task<Model> Handle(Query message)
-            {
-                return await _db.Courses.Where(i => i.CourseID == message.Id).ProjectToSingleOrDefaultAsync<Model>();
-            }
-        }
-    }
+			public async Task<Model> Handle(Query message)
+			{
+				return await _db.Courses.Where(i => i.CourseID == message.Id).ProjectToSingleOrDefaultAsync<Model>();
+			}
+		}
+
+		public class UiController : Controller
+		{
+			private readonly IMediator _mediator;
+
+			public UiController(IMediator mediator)
+			{
+				_mediator = mediator;
+			}
+
+			public async Task<ActionResult> Details(Details.Query query)
+			{
+				var model = await _mediator.SendAsync(query);
+
+				return View(model);
+			}
+		}
+	}
 }

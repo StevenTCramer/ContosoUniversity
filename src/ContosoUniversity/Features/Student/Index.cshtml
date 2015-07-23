@@ -10,8 +10,8 @@
 <h2>Students</h2>
 
 <p>
-	  @(Html.ActionLink("Create New","Create","Student"))
-    @*@(Html.Link<UiController>(c => c.Create(), "Create New"))*@
+	  @(Html.ActionLink("Create New","Create","Student")) 
+		@* TODO last param above I don't think is needed *@
 </p>
 <form method="GET">
     <p>
@@ -59,5 +59,5 @@
     </table>
     <br />
     Page @(Model.Results.PageCount < Model.Results.PageNumber ? 0 : Model.Results.PageNumber) of @Model.Results.PageCount
-
-    @*@(Html.PagedListPager(Model.Results, page => Url.Action<UiController>(c => c.Index(new Index.Query { Page = page, SortOrder = Model.CurrentSort, CurrentFilter = Model.CurrentFilter }))))*@
+		    
+		@(Html.PagedListPager(Model.Results, page => Url.Action("Index", "Student", new Index.Query { Page = page, SortOrder = Model.CurrentSort, CurrentFilter = Model.CurrentFilter })))

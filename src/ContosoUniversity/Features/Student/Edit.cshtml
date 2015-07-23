@@ -30,7 +30,7 @@
 }
 
 <div>
-    @(Html.Link<UiController>(c => c.Index(null), "Back to List"))
+    @Html.ActionLink("Back to List", "Index")
 </div>
 
 @section Scripts {
