@@ -58,15 +58,10 @@ namespace ContosoUniversity.Features.Student
 			}
 		}
 
-		public class UiController : Controller
+		public class UiController : MediatedController
 		{
-			private readonly IMediator _mediator;
-
-			public UiController(IMediator mediator)
-			{
-				_mediator = mediator;
-			}
-
+			public UiController(IMediator mediator) : base(mediator) {}
+			
 			public async Task<ActionResult> Delete(Delete.Query query)
 			{
 				var model = await _mediator.SendAsync(query);

@@ -225,7 +225,6 @@
     <Compile Include="Features\Student\Index.cs" />
     <Compile Include="Features\Department\Delete.cs" />
     <Compile Include="Features\Department\Edit.cs" />
-    <Compile Include="Features\Instructor\UiController.cs" />
     <Compile Include="Features\Student\MappingProfile.cs" />
     <Compile Include="DAL\SchoolConfiguration.cs" />
     <Compile Include="DAL\SchoolContext.cs" />
@@ -259,6 +258,7 @@
     <Compile Include="Infrastructure\Mapping\AutoMapperRegistry.cs" />
     <Compile Include="Infrastructure\FeatureViewLocationRazorViewEngine.cs" />
     <Compile Include="Infrastructure\Mapping\MappingExtensions.cs" />
+    <Compile Include="Infrastructure\MediatedController.cs" />
     <Compile Include="Infrastructure\Tags\DefaultAspNetMvcHtmlConventions.cs" />
     <Compile Include="Infrastructure\Tags\DefaultDisplayLabelBuilder.cs" />
     <Compile Include="Infrastructure\Tags\DepartmentSelectElementBuilder.cs" />

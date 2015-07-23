@@ -3,8 +3,10 @@
 	using System;
 	using System.ComponentModel.DataAnnotations;
 	using System.Linq;
+	using System.Threading.Tasks;
 	using System.Web.Mvc;
 	using DAL;
+	using ContosoUniversity.Infrastructure;
 	using Infrastructure.Mapping;
 	using MediatR;
 	using Models;
@@ -12,7 +14,7 @@
 
 	public class Index
 	{
-		public class Query : IRequest<Result>
+		public class Query : IAsyncRequest<Result>
 		{
 			public string SortOrder { get; set; }
 			public string CurrentFilter { get; set; }
@@ -20,7 +22,7 @@
 			public int? Page { get; set; }
 		}
 
-		public class Result
+		public class Result : IAsyncRequest
 		{
 			public string CurrentSort { get; set; }
 			public string NameSortParm { get; set; }
@@ -40,7 +42,7 @@
 			public DateTime EnrollmentDate { get; set; }
 		}
 
-		public class QueryHandler : IRequestHandler<Query, Result>
+		public class QueryHandler : IAsyncRequestHandler<Query, Result>
 		{
 			private readonly SchoolContext _db;
 
@@ -49,7 +51,7 @@
 				_db = db;
 			}
 
-			public Result Handle(Query message)
+			public async Task<Result> Handle(Query message)
 			{
 				var model = new Result
 				{
@@ -101,18 +103,15 @@
 			}
 		}
 
-		public class UiController : Controller
+		public class UiController : MediatedController
 		{
-			private readonly IMediator _mediator;
+			public UiController(IMediator mediator):base(mediator){}
 
-			public UiController(IMediator mediator)
+			public async Task<ActionResult> Index(Index.Query query)
 			{
-				_mediator = mediator;
-			}
-
-			public ViewResult Index(Index.Query query)
-			{
-				var model = _mediator.Send(query);
+				//return Query(query);
+				
+				var model = await _mediator.SendAsync(query);
 
 				return View(model);
 			}
