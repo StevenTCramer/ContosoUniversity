@@ -19,7 +19,7 @@
 				schoolContext = aSchoolContext;
 			}
 
-			public ActionResult About()
+			public ActionResult Request()
 			{
 				// Commenting out LINQ to show how to do the same thing in SQL.
 				//IQueryable<EnrollmentDateGroup> = from student in db.Students

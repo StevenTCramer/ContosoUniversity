@@ -7,7 +7,7 @@
 	public class ControllerFactory : DefaultControllerFactory
 	{
 		protected override Type GetControllerType(RequestContext requestContext, string controllerName)
-		{	
+		{
 			bool isFeature = Convert.ToBoolean(requestContext.RouteData.GetRequiredString("isFeature"));
 			string typeName = "";
 
@@ -23,6 +23,33 @@
 			var assembly = typeof(ControllerFactory).Assembly;
 			Type type = assembly.GetType(typeName);
 			return type;
+		}
+		public override IController CreateController(RequestContext requestContext, string controllerName)
+		{
+			var controller = base.CreateController(requestContext, controllerName);
+			return ReplaceActionInvoker(controller);
+		}
+
+		private IController ReplaceActionInvoker(IController controller)
+		{
+			var mvcController = controller as Controller;
+			if (mvcController != null)
+			{
+				mvcController.ActionInvoker = new FeatureActionInvoker();
+			}
+
+			return controller;
+		}
+
+	}
+
+	public class FeatureActionInvoker : ControllerActionInvoker
+	{
+
+		protected override ActionDescriptor FindAction(ControllerContext controllerContext, ControllerDescriptor controllerDescriptor, string actionName)
+		{
+			return base.FindAction(controllerContext, controllerDescriptor, "Request");
+			//return base.FindAction(controllerContext, controllerDescriptor, actionName);
 		}
 	}
 }

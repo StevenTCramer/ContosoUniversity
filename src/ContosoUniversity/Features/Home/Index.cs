@@ -8,7 +8,7 @@
 	{
 		public class UiController : Controller
 		{
-			public ActionResult Index()
+			public ActionResult Request()
 			{
 				return View();
 			}
