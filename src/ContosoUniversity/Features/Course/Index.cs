@@ -30,11 +30,11 @@
 			}
 		}
 
-		public class Handler : IAsyncRequestHandler<Query, Result>
+		public class QueryHandler : IAsyncRequestHandler<Query, Result>
 		{
 			private readonly SchoolContext _db;
 
-			public Handler(SchoolContext db)
+			public QueryHandler(SchoolContext db)
 			{
 				_db = db;
 			}

@@ -8,20 +8,20 @@ using MediatR;
 
 namespace ContosoUniversity.Infrastructure
 {
-	public class MediatedController : Controller
+	public class MediatedController<TQuery, TResponse> : Controller
+		where TQuery : IAsyncRequest<TResponse>
 	{
 		protected readonly IMediator _mediator;
 
-		public MediatedController(IMediator mediator)
+		public MediatedController(IMediator aMediator)
 		{
-			_mediator = mediator;
+			_mediator = aMediator;
 		}
 		
 
-		//TODO Can I make this more generic
-		public async Task<ActionResult> Query(IAsyncRequest<IAsyncRequest> query)
-		{
-			var model = await _mediator.SendAsync(query);
+		public virtual async Task<ActionResult> Action(TQuery query)
+		{			
+			TResponse model = await _mediator.SendAsync(query);
 
 			return View(model);
 		}

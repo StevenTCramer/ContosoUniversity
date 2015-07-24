@@ -34,11 +34,11 @@ namespace ContosoUniversity.Features.Student
 			}
 		}
 
-		public class Handler : IAsyncRequestHandler<Query, Model>
+		public class QueryHandler : IAsyncRequestHandler<Query, Model>
 		{
 			private readonly SchoolContext _db;
 
-			public Handler(SchoolContext db)
+			public QueryHandler(SchoolContext db)
 			{
 				_db = db;
 			}

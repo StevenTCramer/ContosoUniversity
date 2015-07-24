@@ -8,18 +8,19 @@
 	using System.Web.Mvc;
 	using AutoMapper;
 	using DAL;
+	using ContosoUniversity.Infrastructure;
 	using MediatR;
 	using Models;
 
 	public class Index
 	{
-		public class Query : IAsyncRequest<Model>
+		public class Query : IAsyncRequest<Result>
 		{
 			public int? Id { get; set; }
 			public int? CourseID { get; set; }
 		}
 
-		public class Model
+		public class Result
 		{
 			public int? InstructorID { get; set; }
 			public int? CourseID { get; set; }
@@ -68,40 +69,40 @@
 			}
 		}
 
-		public class Handler : IAsyncRequestHandler<Query, Model>
+		public class QueryHandler : IAsyncRequestHandler<Query, Result>
 		{
 			private readonly SchoolContext _db;
 
-			public Handler(SchoolContext db)
+			public QueryHandler(SchoolContext db)
 			{
 				_db = db;
 			}
 
-			public async Task<Model> Handle(Query message)
+			public async Task<Result> Handle(Query message)
 			{
 				var instructors = await _db.Instructors
 						.OrderBy(i => i.LastName)
-						.ProjectToListAsync<Model.Instructor>();
+						.ProjectToListAsync<Result.Instructor>();
 
-				var courses = new List<Model.Course>();
-				var enrollments = new List<Model.Enrollment>();
+				var courses = new List<Result.Course>();
+				var enrollments = new List<Result.Enrollment>();
 
 				if (message.Id != null)
 				{
 					courses = await _db.CourseInstructors
 							.Where(ci => ci.InstructorID == message.Id)
 							.Select(ci => ci.Course)
-							.ProjectToListAsync<Model.Course>();
+							.ProjectToListAsync<Result.Course>();
 				}
 
 				if (message.CourseID != null)
 				{
 					enrollments = await _db.Enrollments
 							.Where(x => x.CourseID == message.CourseID)
-							.ProjectToListAsync<Model.Enrollment>();
+							.ProjectToListAsync<Result.Enrollment>();
 				}
 
-				var viewModel = new Model
+				var viewModel = new Result
 				{
 					Instructors = instructors,
 					Courses = courses,
@@ -114,21 +115,10 @@
 			}
 		}
 
-		public class UiController : Controller
+		public class UiController : MediatedController<Query, Result>
 		{
-			private readonly IMediator _mediator;
+			public UiController(IMediator aMediator) : base(aMediator){}
 
-			public UiController(IMediator mediator)
-			{
-				_mediator = mediator;
-			}
-
-			public async Task<ActionResult> Index(Index.Query query)
-			{
-				var model = await _mediator.SendAsync(query);
-
-				return View(model);
-			}
 		}
 
 	}

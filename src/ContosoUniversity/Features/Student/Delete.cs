@@ -58,7 +58,7 @@ namespace ContosoUniversity.Features.Student
 			}
 		}
 
-		public class UiController : MediatedController
+		public class UiController : MediatedController<Delete.Query, Command>
 		{
 			public UiController(IMediator mediator) : base(mediator) {}
 			

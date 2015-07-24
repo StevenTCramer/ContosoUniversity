@@ -7,7 +7,7 @@
     {
         protected override void Configure()
         {
-            CreateMap<Student, Index.Model>();
+            CreateMap<Student, Index.Result.Student>();
             CreateMap<Student, Details.Model>();
             CreateMap<Enrollment, Details.Model.Enrollment>();
             CreateMap<Create.Command, Student>(MemberList.Source);

@@ -30,17 +30,19 @@
 			public string CurrentFilter { get; set; }
 			public string SearchString { get; set; }
 
-			public IPagedList<Model> Results { get; set; }
+			public IPagedList<Student> Results { get; set; }
+
+			public class Student
+			{
+				public int ID { get; set; }
+				[Display(Name = "First Name")]
+				public string FirstMidName { get; set; }
+				public string LastName { get; set; }
+				public DateTime EnrollmentDate { get; set; }
+			}
 		}
 
-		public class Model
-		{
-			public int ID { get; set; }
-			[Display(Name = "First Name")]
-			public string FirstMidName { get; set; }
-			public string LastName { get; set; }
-			public DateTime EnrollmentDate { get; set; }
-		}
+
 
 		public class QueryHandler : IAsyncRequestHandler<Query, Result>
 		{
@@ -97,24 +99,16 @@
 
 				int pageSize = 3;
 				int pageNumber = (message.Page ?? 1);
-				model.Results = students.ProjectToPagedList<Model>(pageNumber, pageSize);
+				model.Results = students.ProjectToPagedList<Result.Student>(pageNumber, pageSize);
 
 				return model;
 			}
 		}
 
-		public class UiController : MediatedController
+		public class UiController : MediatedController<Query, Result>
 		{
-			public UiController(IMediator mediator):base(mediator){}
+			public UiController(IMediator mediator) : base(mediator) { }
 
-			public async Task<ActionResult> Index(Index.Query query)
-			{
-				//return Query(query);
-				
-				var model = await _mediator.SendAsync(query);
-
-				return View(model);
-			}
 		}
 	}
 }

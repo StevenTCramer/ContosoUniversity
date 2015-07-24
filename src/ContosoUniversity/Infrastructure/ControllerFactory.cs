@@ -2,6 +2,7 @@
 {
 	using System;
 	using System.Web.Mvc;
+	using System.Web.Mvc.Async;
 	using System.Web.Routing;
 
 	public class ControllerFactory : DefaultControllerFactory
@@ -43,12 +44,12 @@
 
 	}
 
-	public class FeatureActionInvoker : ControllerActionInvoker
+	public class FeatureActionInvoker : AsyncControllerActionInvoker
 	{
 
 		protected override ActionDescriptor FindAction(ControllerContext controllerContext, ControllerDescriptor controllerDescriptor, string actionName)
 		{
-			return base.FindAction(controllerContext, controllerDescriptor, "Request");
+			return base.FindAction(controllerContext, controllerDescriptor, "Action");
 			//return base.FindAction(controllerContext, controllerDescriptor, actionName);
 		}
 	}
